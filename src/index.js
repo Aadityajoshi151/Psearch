@@ -1,6 +1,7 @@
 const search_button = document.getElementById("searchbtn");
 const input_bar = document.getElementById("inputbar");
 
+input_bar.focus();
 
 websites = [];
 
@@ -12,26 +13,27 @@ input_bar.addEventListener("keyup", function (event) {
 
 search_button.addEventListener("click", function () {
     var query = input_bar.value;
+    query = query.trim();
+    query=query.replace(" ","+")
     var new_window = document.getElementById("new_window_check");
     if (new_window.checked) {
         chrome.windows.create({ focused: true }, function (window) {
             var initialTabCreated = false;
             websites.forEach(site => {
-                //Create the url by using input_bar.value here
+                full_url = site+query;
                 if (!initialTabCreated) {
-                    chrome.tabs.update(window.tabs[0].id, { url: site });
+                    chrome.tabs.update(window.tabs[0].id, { url: full_url });
                     initialTabCreated = true;
                 } else {
-                    chrome.tabs.create({ url: site, windowId: window.id });
+                    chrome.tabs.create({ url: full_url, windowId: window.id });
                 }
             })
         });
     }
     else {
         websites.forEach(site => {
-            //Create the url by using input_bar.value here
-            chrome.tabs.create({ url: site });
+            full_url = site+query;
+            chrome.tabs.create({ url: full_url });
         })
     }
-
 })
