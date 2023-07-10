@@ -12,7 +12,6 @@ input_bar.addEventListener("keyup", function (event) {
 
 search_button.addEventListener("click", function () {
     var query = input_bar.value;
-    alert(query)
     var new_window = document.getElementById("new_window_check");
     if (new_window.checked) {
         chrome.windows.create({ focused: true }, function (window) {
