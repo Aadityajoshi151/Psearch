@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Psearch",
+    "description": "Bulk Psearch",
+    "version": "1.0",
+    "permissions": ["tabs","storage"],
+    "action": {
+        "default_popup": "src/index.html"
+    },
+    "host_permissions": [
+        "<all_urls>"
+    ]
+}
